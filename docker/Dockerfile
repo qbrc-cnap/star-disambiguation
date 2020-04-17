@@ -106,14 +106,5 @@ RUN chmod +x /usr/local/bin/concatenate_featurecounts.py
 RUN mkdir /opt/software/precheck
 ADD check_fastq.py /opt/software/precheck/
 
-# The script for generating the markdown report:
-ADD generate_report.py /usr/local/bin/
-RUN chmod +x /usr/local/bin/generate_report.py
-
-# Add the report template and styling:
-RUN mkdir /opt/report
-ADD report.md /opt/report/
-ADD report.css /opt/report/
-
 ENTRYPOINT ["/bin/bash"]
 
