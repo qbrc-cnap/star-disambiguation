@@ -1,0 +1,10 @@
+{
+  "StarDisambiguateWorkflow.mouse_star_index_path": "gs://cnap-hsph-resources/grcm38.95/grcm38.95.tar",
+  "StarDisambiguateWorkflow.human_star_index_path": "gs://cnap-hsph-resources/grch38.95/grch38.95.tar",
+  "StarDisambiguateWorkflow.mouse_gtf": "gs://cnap-hsph-resources/grcm38.95/Mus_musculus.GRCm38.95.gtf",
+  "StarDisambiguateWorkflow.r2_files": "Array[File]",
+  "StarDisambiguateWorkflow.git_repo_url": "String",
+  "StarDisambiguateWorkflow.git_commit_hash": "String",
+  "StarDisambiguateWorkflow.r1_files": "Array[File]",
+  "StarDisambiguateWorkflow.human_gtf": "gs://cnap-hsph-resources/grch38.95/Homo_sapiens.GRCh38.95.gtf"
+}
