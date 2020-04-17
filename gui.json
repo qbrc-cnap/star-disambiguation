@@ -25,6 +25,28 @@
 			}
 		},
 		{
+			"target": {
+				"target_ids": ["StarDisambiguateWorkflow.human_star_index_path",
+					"StarDisambiguateWorkflow.mouse_star_index_path", 
+					"StarDisambiguateWorkflow.human_gtf", 
+					"StarDisambiguateWorkflow.mouse_gtf"
+				],
+				"name": "genome_choice",
+				"handler": "genome_mapper.py"
+			},
+			"display_element": {
+				"type": "select",
+				"label": "Reference genome",
+				"description": "Choose the reference genomes to use for this process.",
+				"choices": [
+					{
+						"value": "GRCh38.95 and GRCm38.95",
+						"display": "Ensembl GRCh38.95(Human) and GRCm38.95(Mouse)"
+					}
+				]
+			}
+		},
+		{
 			"target": "StarDisambiguateWorkflow.git_commit_hash",
 			"display_element": {
 				"type": "dynamic_hidden",
