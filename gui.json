@@ -15,7 +15,7 @@
 			}	
 		},
 		{
-			"target": "PairedRnaSeqAndQuantWorkflow.git_repo_url",
+			"target": "StarDisambiguateWorkflow.git_repo_url",
 			"display_element": {
 				"type": "dynamic_hidden",
 				"handler": "add_git_repo_url.py",
@@ -25,7 +25,7 @@
 			}
 		},
 		{
-			"target": "PairedRnaSeqAndQuantWorkflow.git_commit_hash",
+			"target": "StarDisambiguateWorkflow.git_commit_hash",
 			"display_element": {
 				"type": "dynamic_hidden",
 				"handler": "add_git_hash.py",
