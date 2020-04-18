@@ -113,7 +113,7 @@ task disambiguate_bams {
     Int disk_size = 100
 
     command {
-        ngs_disambiguate -o disambiguate_output -s ${sample_name} -a star ${sample_name}.human.bam ${sample_name}.mouse.bam
+        ngs_disambiguate -o disambiguate_output -s ${sample_name} -a star ${human_bam} ${mouse_bam}
         mv disambiguate_output/${sample_name}.ambiguousSpeciesA.bam ${sample_name}.ambiguous.human.bam
         mv disambiguate_output/${sample_name}.disambiguatedSpeciesA.bam ${sample_name}.disambiguated.human.bam
         mv disambiguate_output/${sample_name}.ambiguousSpeciesB.bam ${sample_name}.ambiguous.mouse.bam
