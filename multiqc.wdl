@@ -30,7 +30,7 @@ task create_qc {
     }
         
     runtime {
-        docker: "docker.io/hsphqbrc/star_disambig:v0.1"
+        docker: "docker.io/hsphqbrc/star_disambig:v0.2"
         cpu: 2
         memory: "4 G"
         disks: "local-disk " + disk_size + " HDD"

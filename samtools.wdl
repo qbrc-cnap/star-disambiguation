@@ -38,7 +38,7 @@ task samtools_index {
     }
 
     runtime {
-        docker: "docker.io/hsphqbrc/star_disambig:v0.1"
+        docker: "docker.io/hsphqbrc/star_disambig:v0.2"
         cpu: 8
         memory: "16 G"
         disks: "local-disk " + disk_size + " HDD"
@@ -66,7 +66,7 @@ task samtools_primary_filter {
     }
 
     runtime {
-        docker: "docker.io/hsphqbrc/star_disambig:v0.1"
+        docker: "docker.io/hsphqbrc/star_disambig:v0.2"
         cpu: 8
         memory: "16 G"
         disks: "local-disk " + disk_size + " HDD"

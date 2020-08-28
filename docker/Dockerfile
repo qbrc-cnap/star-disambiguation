@@ -29,6 +29,11 @@ ENV PATH="/opt/software/miniconda/bin:${PATH}"
 RUN conda config --add channels bioconda && \
   conda install ngs-disambiguate
 
+# install trimmomatic
+RUN cd /opt/software/ && \
+    wget http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/Trimmomatic-0.39.zip && \
+    unzip Trimmomatic-0.39.zip
+
 # Install fastQC:
 RUN cd /opt/software && \
   wget https://www.bioinformatics.babraham.ac.uk/projects/fastqc/fastqc_v0.11.8.zip && \

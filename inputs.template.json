@@ -6,5 +6,7 @@
   "StarDisambiguateWorkflow.git_repo_url": "String",
   "StarDisambiguateWorkflow.git_commit_hash": "String",
   "StarDisambiguateWorkflow.r1_files": "Array[File]",
-  "StarDisambiguateWorkflow.human_gtf": "File"
+  "StarDisambiguateWorkflow.human_gtf": "File",
+  "StarDisambiguateWorkflow.trim_length_bp": "Int"
+
 }

@@ -10,6 +10,7 @@ workflow StarDisambiguateWorkflow{
 
     Array[File] r1_files
     Array[File] r2_files
+    Int trim_length_bp
     File human_star_index_path
     File human_gtf
     File mouse_star_index_path
@@ -24,20 +25,27 @@ workflow StarDisambiguateWorkflow{
 
     scatter(item in fastq_pairs){
 
+        call trim_reads {
+            input:
+            r1 = item.left,
+            r2 = item.right,
+            trim_length_bp = trim_length_bp
+        }
+
         call fastqc.run_fastqc as fastqc_for_read1 {
             input:
-                fastq = item.left
+                fastq = trim_reads.trimmed_r1
         }
 
         call fastqc.run_fastqc as fastqc_for_read2 {
             input:
-                fastq = item.right
+                fastq = trim_reads.trimmed_r2
         }
 
         call single_sample_rnaseq.SingleSampleRnaSeqWorkflow as human_single_sample_process{
             input:
-                r1_fastq = item.left,
-                r2_fastq = item.right,
+                r1_fastq = trim_reads.trimmed_r1,
+                r2_fastq = trim_reads.trimmed_r2,
                 star_index_path = human_star_index_path,
                 gtf = human_gtf,
                 tag = human_tag
@@ -45,8 +53,8 @@ workflow StarDisambiguateWorkflow{
 
         call single_sample_rnaseq.SingleSampleRnaSeqWorkflow as mouse_single_sample_process{
             input:
-                r1_fastq = item.left,
-                r2_fastq = item.right,
+                r1_fastq = trim_reads.trimmed_r1,
+                r2_fastq = trim_reads.trimmed_r2,
                 star_index_path = mouse_star_index_path,
                 gtf = mouse_gtf,
                 tag = mouse_tag
@@ -132,5 +140,45 @@ workflow StarDisambiguateWorkflow{
         workflow_title : "STAR + Disambiguate"
         workflow_short_description : "Disambiguating PDx samples using STAR and AZ Disambiguate process"
         workflow_long_description : "Use this workflow for aligning with STAR and disambiguating human and mouse reads with AZ's Disambiguate process."
+    }
+}
+
+task trim_reads {
+
+    File r1
+    File r2
+    Int trim_length_bp
+
+    String suffix="_R1.fastq.gz"
+
+    # Extract the samplename from the fastq filename
+    String sample_name = basename(r1, suffix)
+
+    Int disk_size = 200
+
+
+    command {
+        java -jar /opt/software/Trimmomatic-0.39/trimmomatic-0.39.jar PE \
+            -trimlog ${sample_name}.trim.log \
+            -summary ${sample_name}.trim_summary.log \
+            ${r1} ${r2} \
+            -baseout ${sample_name}.trimmed.fastq.gz \
+            CROP:{trim_length_bp}
+
+        mv ${sample_name}.trimmed_1P.fastq.gz ${sample_name}_R1.fastq.gz
+        mv ${sample_name}.trimmed_2P.fastq.gz ${sample_name}_R2.fastq.gz
+    }
+
+    output {
+        File trimmed_r1 = "${sample_name}_R1.fastq.gz"
+        File trimmed_r2 = "${sample_name}_R2.fastq.gz"
+    }
+
+    runtime {
+        docker: "docker.io/hsphqbrc/star_disambig:v0.2"
+        cpu: 4
+        memory: "12 G"
+        disks: "local-disk " + disk_size + " HDD"
+        preemptible: 0
     }
 }
