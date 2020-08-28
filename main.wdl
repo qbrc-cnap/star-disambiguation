@@ -163,10 +163,10 @@ task trim_reads {
             -summary ${sample_name}.trim_summary.log \
             ${r1} ${r2} \
             -baseout ${sample_name}.trimmed.fastq.gz \
-            CROP:{trim_length_bp}
+            CROP:${trim_length_bp}
 
-        mv ${sample_name}.trimmed_1P.fastq.gz ${sample_name}_R1.fastq.gz
-        mv ${sample_name}.trimmed_2P.fastq.gz ${sample_name}_R2.fastq.gz
+        mv "${sample_name}.trimmed_1P.fastq.gz" "${sample_name}_R1.fastq.gz"
+        mv "${sample_name}.trimmed_2P.fastq.gz" "${sample_name}_R2.fastq.gz"
     }
 
     output {
